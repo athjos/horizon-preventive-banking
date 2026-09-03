@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Horizon Preventive Banking"
+description = "A judge-ready interactive MVP that demonstrates proactive financial safety guardrails: explainable distress scoring, guardian consent, collision-safe bill prioritization, subscription leakage detection, and seasonal buffer planning."
+version = "1.0.0"
+id = "artifacts/horizon-app"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20422
+
+[services.development]
+run = "pnpm --filter @workspace/horizon-app run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/horizon-app", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/horizon-app/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20422"
+BASE_PATH = "/"
