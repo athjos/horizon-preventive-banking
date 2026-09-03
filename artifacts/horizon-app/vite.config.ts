@@ -30,6 +30,10 @@ if (!basePath) {
 const horizonEntry = {
   name: 'horizon-entry',
   transformIndexHtml(html: string) {
+    if (!html.includes('<!-- HORIZON_ENTRY -->')) {
+      return html;
+    }
+
     return {
       html,
       tags: [
